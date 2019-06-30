@@ -5,8 +5,17 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
+import {FirebaseUIModule, firebase, firebaseui} from 'firebaseui-angular';
 
-
+const firebaseUiAuthConfig: firebaseui.auth.Config = {
+  signInFlow: 'popup',
+  signInOptions: [
+    firebase.auth.EmailAuthProvider.PROVIDER_ID,
+  ],
+  tosUrl: 'https://abrarzahin.com/tos',
+  privacyPolicyUrl: 'https://abrarzahin.com/privacy',
+  credentialHelper: firebaseui.auth.CredentialHelper.NONE,
+};
 
 
 
@@ -21,7 +30,7 @@ import { HomePage } from './home.page';
         component: HomePage
       }
     ]),
-
+    FirebaseUIModule.forRoot(firebaseUiAuthConfig)
   ],
   declarations: [HomePage]
 })

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-
+import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-home',
@@ -8,6 +9,11 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  items=[{text:'orange'}];
+  items=[];
+
+  constructor(private db: AngularFirestore, public afAuth: AngularFireAuth) {
+    
+   
+  }
 
 }

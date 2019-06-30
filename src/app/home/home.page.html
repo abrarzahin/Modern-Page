@@ -7,13 +7,20 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
+
+  <div *ngIf="!afAuth.auth.currentUser">
+    <firebase-ui></firebase-ui>
+  </div>
+
+  <div *ngIf="afAuth.auth.currentUser">
     <ion-list>
-      <ion-item *ngFor="let item of items">
+      <ion-item-sliding *ngFor="let item of items">
         <ion-item>
           <ion-label>{{item.text}}</ion-label>
         </ion-item>
-      </ion-item>
+      </ion-item-sliding>
     </ion-list>
+  </div>
 
 </ion-content>
 
