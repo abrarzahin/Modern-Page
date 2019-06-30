@@ -10,16 +10,34 @@ import { AlertController } from '@ionic/angular';
 })
 export class HomePage {
 
-  items=[];
+  items = [
+  ];
 
   constructor(private db: AngularFirestore, public afAuth: AngularFireAuth,
-    private alertController: AlertController) {
+    private alertController: AlertController,) {
     
-   
+    this.afAuth.authState.subscribe(user => {
+      if (user)
+        this.listenToItems();
+    });
   }
+
+  listenToItems() {
+    this.db.collection(`users/${this.afAuth.auth.currentUser.uid}/items`,
+    ref => ref.orderBy('timestamp', 'desc'))
+    .snapshotChanges().subscribe(colSnap => {
+      this.items = [];
+      colSnap.forEach(docSnap => {
+        let item:any = docSnap.payload.doc.data();
+        item.id = docSnap.payload.doc.id;
+        this.items.push(item);
+      });
+    });
+  }
+
   async addItem() {
     const alert = await this.alertController.create({
-      header: 'Please provide a item name',
+      header: 'Please provide an item name',
       inputs: [
         {
           name: 'itemName',
@@ -50,7 +68,16 @@ export class HomePage {
       console.log(result);
       let text: string = result.data.values.itemName;
       console.log(text);
+      if (!text || !text.trim())
+        return;
+      let timestamp = new Date();
+
+      this.db.collection(`users/${this.afAuth.auth.currentUser.uid}/items`).add({
+        text,
+        timestamp,
+      });
     });
-  
-}
+  }
+
+
 }
