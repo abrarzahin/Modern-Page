@@ -6,18 +6,9 @@ import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
 
-import {FirebaseUIModule, firebase, firebaseui} from 'firebaseui-angular';
 
 
-const firebaseUiAuthConfig: firebaseui.auth.Config = {
-  signInFlow: 'popup',
-  signInOptions: [
-    firebase.auth.EmailAuthProvider.PROVIDER_ID,
-  ],
-  tosUrl: 'https://jamibot.com/tos',
-  privacyPolicyUrl: 'https://jamibot.com/privacy',
-  credentialHelper: firebaseui.auth.CredentialHelper.NONE,
-};
+
 
 @NgModule({
   imports: [
@@ -30,7 +21,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
         component: HomePage
       }
     ]),
-    FirebaseUIModule.forRoot(firebaseUiAuthConfig)
+
   ],
   declarations: [HomePage]
 })
