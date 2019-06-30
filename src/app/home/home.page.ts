@@ -79,5 +79,9 @@ export class HomePage {
     });
   }
 
+  delete(item) {
+    this.db.doc(`users/${this.afAuth.auth.currentUser.uid}/items/${item.id}`).delete();
+  }
+
 
 }

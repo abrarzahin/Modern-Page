@@ -1,17 +1,18 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Modern Page
+      Modern page
     </ion-title>
 
     <ion-buttons slot="end">
-      <ion-button (click)="addItem()" >
+      <ion-button (click)="addItem()">
         <ion-icon name="add"></ion-icon>
       </ion-button>
     </ion-buttons>
 
   </ion-toolbar>
 </ion-header>
+
 <ion-content>
 
   <div *ngIf="!afAuth.auth.currentUser">
@@ -24,6 +25,9 @@
         <ion-item>
           <ion-label>{{item.text}}</ion-label>
         </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option color="danger" (click)="delete(item)">Delete</ion-item-option>
+        </ion-item-options>
       </ion-item-sliding>
     </ion-list>
   </div>
